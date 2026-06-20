@@ -1,0 +1,60 @@
+:root {
+    --púrpura-nash: #4a2c6d;
+    --celeste-mundial: #4eb5e6;
+    --fondo-claro: #f4f7f6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+    font-family: 'Segoe UI', sans-serif; 
+    background-color: var(--púrpura-nash); 
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+header { 
+    padding: 0; 
+    width: 100%; 
+    margin-bottom: 20px; 
+    background-color: #f0f0f0  ;
+}
+/* Reemplazamos el logo de texto por tu imagen de encabezado */
+.banner { 
+    width: 100%;            /* Ocupa todo el ancho */
+    max-width: 500px;        /* Ignora el límite anterior */
+    height: auto; 
+    display: block;
+    margin: 0 auto 20px auto; /* Esto la centra automáticamente */
+
+    object-fit: cover;      /* Asegura que la imagen no se deforme */
+} 
+
+main { 
+    display: flex; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; width: 100%; max-width: 900px;
+}
+
+.box { 
+    background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 450px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 { color: var(--púrpura-nash); margin-bottom: 10px; font-size: 1.5rem; }
+
+input, select { 
+    width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #e1e1e1; border-radius: 6px; 
+}
+input:focus { border-color: var(--celeste-mundial); outline: none; }
+
+.btn-add { background-color: #6c757d; color: white; border: none; padding: 12px; width: 100%; cursor: pointer; border-radius: 6px; }
+.btn-send { background-color: var(--celeste-mundial); color: white; border: none; padding: 12px; width: 100%; cursor: pointer; border-radius: 6px; font-weight: bold; }
+
+.ayuda { background: rgba(255,255,255,0.1); color: white; padding: 20px; border-radius: 8px; width: 100%; max-width: 250px; }
+footer { padding: 2rem; color: rgba(255,255,255,0.6); font-size: 0.8rem; }
