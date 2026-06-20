@@ -62,7 +62,7 @@ html {
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    max-width: 95vw;
+    max-width: 99vw;
 }
 .map-image {
     display: block;        /* Elimina espacios en blanco bajo la imagen */
