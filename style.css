@@ -9,6 +9,7 @@ body {
     min-height: 100vh;
     margin: 0;
 
+    overflow-x: hidden;
     /* La imagen que quieres repetir */
     background-image: url('fondo.png'); 
     
@@ -58,16 +59,14 @@ html {
     flex-grow: 1; /* Permite que ocupe el espacio disponible */
 
     background: rgba(255, 255, 255, 0.9); /* Un fondo blanco semitransparente detrás del mapa */
-    padding: 20px;
-    border-radius: 20px;
+    /*padding: 20px;
+    border-radius: 20px;*/
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    margin-left: 5px;
-    margin-right: 5px;
+    max-width: 95vw;
 }
-
 .map-image {
     display: block;        /* Elimina espacios en blanco bajo la imagen */
-    max-width: 95vw;
+    max-width: 100%;
     max-height: 80vh;
     width: auto;           /* Mantiene la proporción */
     height: auto;
