@@ -80,8 +80,17 @@ html {
         object-fit: contain;
         cursor: pointer;
         transition: transform 0.2s;
+        animation: flotar 3s ease-in-out infinite;
+
 
 }
+@keyframes flotar {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+
 .icono-extra:hover {
     transform: scale(1.1);
 }
@@ -172,3 +181,33 @@ html {
 }
 
 
+
+
+#fuegos-contenedor {
+    position: absolute; /* Debe ser absolute respecto a .map-container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Muy importante para que no tape los clics */
+    z-index: 10;
+}
+
+/* Estilo de cada partícula (un cuadrado pequeño) */
+.particula {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    /* Animación que combina movimiento y desvanecimiento */
+    animation: explosion 1.5s ease-out forwards;
+    /* Ocultas hasta que inicie la animación */
+    opacity: 0; 
+}
+
+/* Animación clave: la partícula sube un poco y cae explotando */
+@keyframes explosion {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    20% { transform: translate(var(--x), var(--y)) scale(1.5); } /* Explosión */
+    100% { transform: translate(var(--x), calc(var(--y) + 50px)) scale(0.5); opacity: 0; } /* Cae y desaparece */
+}

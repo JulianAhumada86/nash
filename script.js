@@ -8,6 +8,8 @@ const copa = document.getElementById('btn-copa')
 const btnListo = document.getElementById('btn-listo');
 const btnVoy = document.getElementById('btn-voy')
 const cabecera = document.getElementById('cabecera')
+const fuegosContenedor = document.getElementById('fuegos-contenedor');
+
 const dataEstadios = {
     "btn-3A": { nombre: "Maracaná del Fondo del Mar", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/3A.png", estrellas: 0 },
     "btn-3B": { nombre: "Soccer City de la Selva", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/3B.png", estrellas: 0 },
@@ -22,8 +24,12 @@ const dataEstadios = {
 
 let hotspotActivo = null; // Variable para recordar qué botón se presionó
 var contador = 0
+let intervaloFuegos = null
+let aviso = true
+document.addEventListener('DOMContentLoaded', () => {
 
 
+});
 
 // Abrir primer modal
 document.querySelectorAll('.hotspot').forEach(hotspot => {
@@ -73,7 +79,9 @@ btnEnviar.addEventListener('click', () => {
 btnCancelar.addEventListener('click', cerrarModal);
 
 copa.addEventListener('click', () => {
-    modal2.style.display = 'flex';
+   detenerFuegos();
+   modal2.style.display = 'flex';
+    
 })
 // Cerrar si hacen clic fuera
 window.addEventListener('click', (e) => {
@@ -90,6 +98,10 @@ btnVoy.addEventListener('click', () => {
 btnListo.addEventListener('click', () => {
     modalInfo.style.display = 'none';
     document.querySelectorAll('input[name="rate"]').forEach(r => r.checked = false);
+    if(aviso && contador === 7 ){
+        alert("Completasta las salas... quedá algo mas acá")
+        aviso = false
+    } 
 });
 
 
@@ -108,21 +120,28 @@ function mostrarModalInfo() {
 
 
 cabecera.addEventListener('click', () => {
+
     activarFoto()
+    
 }); 
 
 function activarFoto(){
+
     console.log("Activar foto")
     copa.style.display = 'block'
 
-    const puntuaciones =[] 
-    const llaves = Object.keys(dataEstadios); 
 
-    // Ahora recorremos las llaves
+
+    // Llamamos a la función fuegos pasando las coordenadas
+    encenderFuegos() 
+
+    // Lógica original de envío
+    const puntuaciones = []; 
+    const llaves = Object.keys(dataEstadios); 
     for (let i = 0; i < llaves.length; i++) {
-        const id = llaves[i]; // Esto será "btn-5A", "btn-1er", etc.
-        puntuaciones.push(dataEstadios[id].estrellas);
+        puntuaciones.push(dataEstadios[llaves[i]].estrellas);
     }
+    
 
     enviar(puntuaciones)
 }
@@ -145,3 +164,57 @@ function enviar(datos) {
     .then(data => console.log("Éxito:", data))
     .catch(err => console.error("Error definitivo:", err));
 }
+
+
+
+function encenderFuegos() {
+    // Si ya están prendidos, no hacer nada
+    if (intervaloFuegos) return; 
+
+    fuegosContenedor.style.display = 'block';
+    
+    // Genera una nueva partícula cada 100ms
+    intervaloFuegos = setInterval(() => {
+        for (let i = 0; i < 3; i++) {
+            crearParticula();
+        }
+    }, 60);
+}
+
+
+function detenerFuegos() {
+    clearInterval(intervaloFuegos);
+    intervaloFuegos = null;
+    fuegosContenedor.style.display = 'none';
+    fuegosContenedor.innerHTML = ''; // Limpiar todo
+}
+
+
+function crearParticula() {
+        const particula = document.createElement('div');
+        particula.classList.add('particula');
+        
+        // Calcular posición relativa a la copa dentro del contenedor
+        const rectCopa = copa.getBoundingClientRect();
+        const rectMapa = document.querySelector('.map-container').getBoundingClientRect();
+        
+        const xPos = (rectCopa.left + rectCopa.width / 2) - rectMapa.left;
+        const yPos = (rectCopa.top + rectCopa.height / 2) - rectMapa.top;
+
+        particula.style.left = `${xPos}px`;
+        particula.style.top = `${yPos}px`;
+        
+        const colores = ['#2E2D82', '#4A90E2', '#8E7CC3', '#B2EBF2', '#F5F7FA', '#7F8C8D'];
+        particula.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+
+        const x = (Math.random() - 0.5) * 200;
+        const y = (Math.random() - 0.5) * 200;
+        
+        particula.style.setProperty('--x', `${x}px`);
+        particula.style.setProperty('--y', `${y}px`);
+        particula.style.width = `${Math.random() * 8 + 5}px`;
+        particula.style.height = particula.style.width;
+
+        fuegosContenedor.appendChild(particula);
+        setTimeout(() => particula.remove(), 1500);
+    }
