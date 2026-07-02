@@ -9,25 +9,21 @@ const btnListo = document.getElementById('btn-listo');
 const btnVoy = document.getElementById('btn-voy')
 const cabecera = document.getElementById('cabecera')
 const dataEstadios = {
+    "btn-3A": { nombre: "Maracaná del Fondo del Mar", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/3A.png", estrellas: 0 },
+    "btn-3B": { nombre: "Soccer City de la Selva", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/3B.png", estrellas: 0 },
+    "btn-4A":{ nombre: "Monumental de los Dinosaurios", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/4A.png", estrellas: 0 },
+    "btn-4B": { nombre: "Azteca de los Superhéroes", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/4B.png", estrellas: 0 },
     "btn-5A": { nombre: "Yokohama del Espacio", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/5A.png", estrellas: 0 },
     "btn-1er": { nombre: "Lusail de Ciudad Robot", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/1er.png", estrellas: 0 },
     "btn-2do":{ nombre: "Wembley de las Olimpiadas", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/2do.png", estrellas: 0 },
-    "btn-4A":{ nombre: "Monumental de los Dinosaurios", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/4A.png", estrellas: 0 },
-    "btn-4B": { nombre: "Azteca de los Superhéroes", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/4B.png", estrellas: 0 },
-    "btn-3A": { nombre: "Maracaná del Fondo del Mar", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/3A.png", estrellas: 0 },
-    "btn-3B": { nombre: "Soccer City de la Selva", mensaje: "¡Ya podes retirar tu figurita!", img: "salas/3B.png", estrellas: 0 },
-    };
 
+    };
 
 
 let hotspotActivo = null; // Variable para recordar qué botón se presionó
 var contador = 0
 
-const miDato = window.location.hash.substring(1);
-console.log(miDato)
-if(miDato==""){
-    console.log("No hay dato")
-}
+
 
 // Abrir primer modal
 document.querySelectorAll('.hotspot').forEach(hotspot => {
@@ -84,11 +80,7 @@ window.addEventListener('click', (e) => {
     if (e.target === modal) modal.style.display = 'none';
 });
 
-function activarFoto(){
-    console.log("Activar foto")
-    copa.style.display = 'block'
 
-}
 
 
 btnVoy.addEventListener('click', () => {
@@ -115,6 +107,41 @@ function mostrarModalInfo() {
 }
 
 
+cabecera.addEventListener('click', () => {
+    activarFoto()
+}); 
+
+function activarFoto(){
+    console.log("Activar foto")
+    copa.style.display = 'block'
+
+    const puntuaciones =[] 
+    const llaves = Object.keys(dataEstadios); 
+
+    // Ahora recorremos las llaves
+    for (let i = 0; i < llaves.length; i++) {
+        const id = llaves[i]; // Esto será "btn-5A", "btn-1er", etc.
+        puntuaciones.push(dataEstadios[id].estrellas);
+    }
+
+    enviar(puntuaciones)
+}
+
+//https://script.google.com/macros/s/AKfycbz_6B-zC_0yMu2fQxXfg8pbZlBA_r8SXudengeCNwua1Xpm6fwVVPaVIlorT7keXp4F/exec
+
+// Asegúrate de que esta es la URL de tu LATEST DEPLOYMENT
 
 
-cabecera.addEventListener('click', activarFoto())
+function enviar(datos) {
+    const URL = 'https://script.google.com/macros/s/AKfycbxRnwNOmZowWLEvkoCaHN-xyZBKlPrOnB9OZO4q1v6rcrE2q0FUFYsTyFOzKUPq0mtW/exec';
+    fetch(URL,{
+    method:"POST",
+    headers:{
+        "Content-Type":"text/plain"
+    },
+    body:JSON.stringify(datos)
+    })
+    .then(res => res.json())
+    .then(data => console.log("Éxito:", data))
+    .catch(err => console.error("Error definitivo:", err));
+}
