@@ -13,7 +13,7 @@
 
 </head>
 <header class="page-header" style="background-color: white;">
-        <img src="cartel ingreso.png" alt="" >
+        <img src="cartel ingreso.png" alt="" id="cabecera">
 </header>
 <body>
    <div class="map-container">
@@ -25,8 +25,8 @@
         <div class="hotspot" id="btn-4B" style="top: 36%; left: 34%;" data-name="Azteca de los Superhéroes"></div>
         <div class="hotspot" id="btn-3A" style="top: 62%; left: 31%;" data-name="Maracaná del Fondo del Mar"></div>
         <div class="hotspot" id="btn-3B" style="top: 71%; left: 37%;" data-name="Soccer City de la Selva"></div>
-        <div class="hotspot2" id="btn-copa" style="top: 55%; left: 64%;" data-name="Copa">
-            <img src="copa.png" class="icono-extra" id="copa">
+        <div class="hotspot2" id="btn-copa" style="top: 55%; left: 64%; display:'block'" data-name="Copa; ">
+            <img src="copa.png" class="icono-extra" id="copa" style="display: flex;">
         </div>
     </div>
 
@@ -65,9 +65,6 @@
             <hr style="margin-bottom: 10px;"> 
             <button id="btn-voy">¡Voy!</button>
         </div>
-    </div>
-    <div class="alerta-aviso">
-        <p>Recordá no cerrar esta  <br> página durante el recorrido</p>
     </div>
     <script src="script.js"></script>
 </body>
